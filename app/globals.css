@@ -1,3 +1,154 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @import '@radix-ui/colors/blackA.css';
+@import '@radix-ui/colors/green.css';
+@import '@radix-ui/colors/mauve.css';
+@import '@radix-ui/colors/violet.css'; */
+
+/* reset */
+/* button,
+fieldset,
+input {
+	all: unset;
+} */
+
+.DialogOverlay {
+	@apply bg-black fixed inset-0 bg-opacity-90;
+	animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent {
+	background-color: white;
+	border-radius: 6px;
+	box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 90vw;
+	max-width: 450px;
+	max-height: 85vh;
+	padding: 25px;
+	animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.DialogContent:focus {
+	@apply outline-none;
+}
+
+.DialogTitle {
+	margin: 0;
+	font-weight: 500;
+	color: var(--mauve12);
+	font-size: 17px;
+}
+
+.DialogDescription {
+	margin: 10px 0 20px;
+	color: var(--mauve11);
+	font-size: 15px;
+	line-height: 1.5;
+}
+
+.Button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 4px;
+	padding: 0 15px;
+	font-size: 15px;
+	line-height: 1;
+	font-weight: 500;
+	height: 35px;
+}
+
+.Button.violet {
+	@apply bg-fuchsia-900 text-white shadow text-sm capitalize;
+}
+
+.Button.violet:hover {
+	@apply bg-fuchsia-800;
+}
+
+.Button.violet:focus {
+	@apply shadow-sm;
+}
+
+.Button.green {
+	@apply bg-green-800 text-white shadow text-sm capitalize transition-colors duration-150;
+}
+
+.Button.green:hover {
+	@apply bg-green-700 text-gray-200;
+}
+
+.Button.green:focus {
+	@apply shadow-sm;
+}
+
+.IconButton {
+	font-family: inherit;
+	border-radius: 100%;
+	height: 25px;
+	width: 25px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--violet11);
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+.IconButton:hover {
+	background-color: var(--violet4);
+}
+.IconButton:focus {
+	box-shadow: 0 0 0 2px var(--violet7);
+}
+
+.Fieldset {
+	@apply flex gap-5 items-center mb-5 max-w-sm;
+}
+
+.Label {
+	@apply text-right w-24 block text-sm font-medium text-gray-700;
+}
+
+.Input {
+	@apply w-full flex-1 rounded border-gray-300 px-3 leading-4 text-gray-900 outline-none border placeholder:text-gray-600;
+}
+/* input not of type file */
+input:not([type='file']),
+select {
+	@apply w-full flex-1 inline-flex items-center justify-center h-10;
+}
+
+.Input:focus {
+	box-shadow: 0 0 0 2px var(--violet8);
+}
+
+input[type='file'] {
+	@apply rounded text-sm text-gray-900 file:mr-5 file:py-2 file:px-4 w-full border file:border-gray-500 file:rounded file:border-0 file:text-sm hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 file:outline-none outline-none;
+}
+
+@keyframes overlayShow {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes contentShow {
+	from {
+		opacity: 0;
+		transform: translate(-50%, -48%) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(1);
+	}
+}
