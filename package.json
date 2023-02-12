@@ -12,7 +12,11 @@
 	},
 	"dependencies": {
 		"@next/font": "13.1.6",
+		"@radix-ui/react-alert-dialog": "^1.0.2",
+		"@radix-ui/react-dialog": "^1.0.2",
+		"@radix-ui/react-icons": "^1.1.1",
 		"@radix-ui/react-popover": "1.0.3",
+		"@radix-ui/react-toast": "^1.1.2",
 		"@supabase/supabase-js": "^2.7.1",
 		"@types/node": "18.13.0",
 		"@types/react": "18.0.27",
@@ -23,10 +27,12 @@
 		"next": "13.1.6",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"react-hook-form": "^7.43.1",
 		"typescript": "4.9.5"
 	},
 	"devDependencies": {
 		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/forms": "^0.5.3",
 		"autoprefixer": "^10.4.13",
 		"encoding": "^0.1.13",
 		"postcss": "^8.4.21",
