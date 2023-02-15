@@ -35,9 +35,17 @@ export default DialogDemo;
 
 const ImageForm = () => {
 	const { register, handleSubmit } = useForm();
-	const onSubmit = async (data: any) => {
-		const { title, description, category, image } = data;
-		await supabase.from('visions').insert({ title: title, description: description, category: category });
+	const onSubmit = async (props: any) => {
+		const { title, description, category, image } = props;
+		//
+		const { data } = await supabase.from('categories').select('id').match({ name: category });
+		//
+		if (data && data.length > 0) {
+			const cat = data[0];
+			await supabase.from('visions').insert({ board_id: 1, title: title, description: description, category_id: cat.id });
+		}
+
+		// await supabase.storage.from('images').upload('test.png', image[0]);
 	};
 
 	return (
