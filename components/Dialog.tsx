@@ -37,13 +37,18 @@ const ImageForm = () => {
 	const { register, handleSubmit } = useForm();
 	const onSubmit = async (props: any) => {
 		const { title, description, category, image } = props;
+		console.log(image);
 		//
-		const { data } = await supabase.from('categories').select('id').match({ name: category });
+		const { data:cate } = await supabase.from('categories').select('id').match({ name: category });
 		//
-		if (data && data.length > 0) {
-			const cat = data[0];
-			await supabase.from('visions').insert({ board_id: 1, title: title, description: description, category_id: cat.id });
+		if (cate && cate.length > 0) {
+			const cat = cate[0];
+			await supabase
+				.from('visions')
+				.insert({ board_id: 1, title: title, description: description, category_id: cat.id });
 		}
+
+		// const { data } = await supabase.storage.from('images').upload()
 
 		// await supabase.storage.from('images').upload('test.png', image[0]);
 	};
@@ -75,10 +80,10 @@ const ImageForm = () => {
 			</fieldset>
 			<fieldset className="Fieldset">
 				<label className="Label">Image</label>
-				<div className="flex-1 mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+				<div className="flex justify-center flex-1 px-6 pt-5 pb-6 mt-1 border-2 border-gray-300 border-dashed rounded-md">
 					<div className="space-y-1 text-center">
 						<svg
-							className="mx-auto h-12 w-12 text-gray-400"
+							className="w-12 h-12 mx-auto text-gray-400"
 							stroke="currentColor"
 							fill="none"
 							viewBox="0 0 48 48"
@@ -93,7 +98,7 @@ const ImageForm = () => {
 						<div className="flex text-sm text-gray-600">
 							<label
 								htmlFor="file-upload"
-								className="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
+								className="relative font-medium text-indigo-600 bg-white rounded-md cursor-pointer focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
 								<span>Upload a file</span>
 								<input
 									id="file-upload"

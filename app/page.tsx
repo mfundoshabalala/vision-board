@@ -1,6 +1,7 @@
 import supabase from '@/utils/supabase';
 import BlurImage from '@/components/BlurImage';
 import DialogDemo from '@/components/Dialog';
+import NoVision from '@/components/NoVision';
 
 export type Image = {
 	id: number;
@@ -18,11 +19,7 @@ const Gallery = async () => {
 		.order('id', { ascending: true });
 
 	if (!images) {
-		return (
-			<div>
-				<div>No Image</div>
-			</div>
-		);
+		return <NoVision />;
 	}
 
 	return (

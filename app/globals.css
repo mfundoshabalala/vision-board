@@ -133,6 +133,10 @@ input[type='file'] {
 	@apply rounded text-sm text-gray-900 file:mr-5 file:py-2 file:px-4 w-full border file:border-gray-500 file:rounded file:border-0 file:text-sm hover:file:cursor-pointer hover:file:bg-amber-50 hover:file:text-amber-700 file:outline-none outline-none;
 }
 
+a {
+	@apply hover:underline;
+}
+
 @keyframes overlayShow {
 	from {
 		opacity: 0;

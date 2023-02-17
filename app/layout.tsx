@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import ImportImageDialog from '@/components/ImageDialog';
+import Footer from '@/components/Footer';
 import './globals.css';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -7,10 +7,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en">
 			<head />
 			<body>
-				<div className="flex flex-col min-h-screen ">
+				<div className="flex flex-col min-h-screen text-gray-800 select-none">
 					<Header />
 					<main className="flex-1">{children}</main>
-					<footer>Footer</footer>
+					<Footer />
 				</div>
 			</body>
 		</html>

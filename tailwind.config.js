@@ -6,7 +6,24 @@ module.exports = {
 		'./components/**/*.{js,ts,jsx,tsx}',
 	],
 	theme: {
-		extend: {},
+		extend: {
+			animation: {
+				torch: 'torch 6s infinite',
+			},
+			keyframes: {
+				torch: {
+					"0%": {
+						backgroundPosition: '-300% 0',
+					},
+					'50%': {
+						backgroundPosition: '300% 0',
+					},
+					'100%': {
+						backgroundPosition: '-150% 0',
+					},
+				},
+			},
+		},
 	},
 	plugins: [require('@tailwindcss/aspect-ratio'), require('@tailwindcss/forms')],
 };
