@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import ImageInput from './ImageInput';
