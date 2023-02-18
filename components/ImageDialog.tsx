@@ -1,5 +1,5 @@
 'use client';
-import Image from "next/image";
+import Image from 'next/image';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import ImageInput from './ImageInput';
@@ -25,19 +25,20 @@ const ImageDialog = () => {
 		// return data;
 	};
 	return (
-        <Dialog.Root>
+		<Dialog.Root>
 			<Dialog.Trigger asChild>
 				<div className="group">
 					<div className="w-full overflow-hidden bg-gray-200 border-2 border-purple-300 rounded-lg aspect-w-1 aspect-h-1 xl:aspect-w-7 xl:aspect-h-8">
 						<Image
-                            src="/add-icon.png"
-                            alt="add image"
-                            className="cursor-pointer opacity-30"
-                            fill
-                            sizes="100vw"
-                            style={{
-                                objectFit: "cover"
-                            }} />
+							src="/add-icon.png"
+							alt="add image"
+							className="cursor-pointer opacity-30"
+							fill
+							sizes="100vw"
+							style={{
+								objectFit: 'cover',
+							}}
+						/>
 					</div>
 				</div>
 				``
@@ -82,7 +83,7 @@ const ImageDialog = () => {
 				</Dialog.Content>
 			</Dialog.Portal>
 		</Dialog.Root>
-    );
+	);
 };
 
 export default ImageDialog;
