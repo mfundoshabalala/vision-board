@@ -12,7 +12,7 @@ module.exports = {
 			},
 			keyframes: {
 				torch: {
-					"0%": {
+					'0%': {
 						backgroundPosition: '-300% 0',
 					},
 					'50%': {
