@@ -5,6 +5,7 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 
 import { useForm } from 'react-hook-form';
 import supabase from '@/utils/supabase';
+import { createCategory, createVision, getCategoryByName, storeImage, updateVisionWithImageUrl } from '@/utils/database';
 
 type VisionProps = {
 	board_id?: number;
@@ -44,85 +45,26 @@ export default DialogDemo;
 const ImageForm = () => {
 	const { register, handleSubmit } = useForm();
 
-	const getCategoryId: (category: string) => Promise<number | null> = async (category) => {
-		const { data } = await supabase.from('categories').select('id').match({ name: category });
-		if (data && data.length > 0) {
-			return data[0].id;
-		}
-		return null;
-	};
-
-	const createCategory = async (category: string) => {
-		const { data, error } = await supabase
-			.from('categories')
-			.insert({ name: category })
-			.select('id');
-		if (data) {
-			return data[0].id;
-		} else if (error) {
-			console.log(error);
-		} else {
-			console.log('no data');
-		}
-	};
-
-	const createVision: (props: VisionProps) => Promise<void> = async (props: VisionProps) => {
-		const { board_id = 1, title, description, category_id } = props;
-		await supabase.from('visions').insert({
-			board_id: board_id,
-			title: title,
-			description: description,
-			category_id: category_id,
-		});
-	};
-
-	const updateVisionWithImage = async (vision_id: number, image: File) => {
-		const img_path = await insertImageToBucket(image);
-		if (img_path) {
-			const { data, error } = await supabase
-				.from('visions')
-				.update({ image: img_path })
-				.match({ id: vision_id });
-			if (data) {
-				console.log(data);
-			} else if (error) {
-				console.log(error);
-			} else {
-				console.log('no data');
-			}
-		}  else {
-			console.log('no image data');
-		}
-	};
-
-	const insertImageToBucket: (image: File) => Promise<any> = async (image: File) => {
-		const { data, error } = await supabase.storage
-			.from('images')
-			.upload('public/' + image.name, image)
-		return data?.path;
-	};
-
 	const onSubmit = async (props: any) => {
-		// properties from the form
-		const { title, description, category, image } = props;
-		// select a category based on the category name
-		const category_id = await getCategoryId(category);
-		// insert a new vision
-		if (category_id) {
-			await createVision({ title, description, category_id });
+		const { title, description, category: categoryName, image } = props;
+		let categoryId: number | null = null;
+		let visionId: number | null = null;
+		let image_url: string | null = null;
+		// get vision category
+		const categoryData = await getCategoryByName(categoryName);
+		categoryId = categoryData ? categoryData.id : await createCategory(categoryName);
+		// add vision
+		if (categoryId) {
+			const visionData = await createVision(props, categoryId);
+			visionId = visionData?.id;
+			// store image to bucket
+			image_url = await storeImage(image[0]);
 		}
-
-		const { data, error } = await supabase.storage
-			.from('images')
-			.upload('public/' + image[0].name, image[0] as File);
-		if (data) {
+		// add image to vision
+		if (categoryId && visionId && image_url) {
+			const data =  await updateVisionWithImageUrl(image_url, visionId);
 			console.log(data);
-		} else if (error) {
-			console.log(error);
-		} else {
-			console.log('no data');
 		}
-		// await supabase.storage.from('images').upload('test.png', image[0]);
 	};
 
 	return (
